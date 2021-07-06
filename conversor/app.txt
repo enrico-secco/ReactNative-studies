@@ -1,0 +1,33 @@
+import React, {Component} from 'react';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator
+} from 'react-native'; //componentes
+
+import Conversor from './src/Conversor/index'
+
+class App extends Component{ 
+
+  render(){ 
+
+    return(
+      <View style={styles.container}>
+        <Conversor moedaA="USD"  moedaB="BRL" />
+        <Conversor moedaA="EUR"  moedaB="BRL" />
+       
+      </View>
+
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    alignItems: "center",
+    justifyContent: "center",
+   
+    backgroundColor: "#fff",
+  }
+  
+})
+
+export default App;

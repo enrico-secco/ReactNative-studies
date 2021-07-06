@@ -1,0 +1,64 @@
+import React, {Component} from 'react';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator
+} from 'react-native'; //componentes
+
+import api from './src/services/api'
+import Filmes from './src/Filmes/filmes'
+
+class App extends Component{ 
+
+  constructor(props){
+    super(props);
+    this.state = {
+      filmes: [],
+      loading: true
+    }
+  }
+
+
+ async componentDidMount(){
+    const response = await api.get('r-api/?api=filmes'); //pegando a base url mais isso
+    this.setState({
+      filmes: response.data, //requisições no axios vem dentro da propriedade data
+      loading: false
+    })
+  }
+
+  render(){ 
+
+    if(this.state.loading){
+      return(
+        <ActivityIndicator color="#09a6ff" size={40} /> // mostra o carregando
+      )
+    }
+
+
+    return(
+      <View style={styles.container}>
+
+        <FlatList
+        data={this.state.filmes}
+        keyExtractor={item => item.id.toString()} //key tem que ser em string
+        renderItem={({item}) => <Filmes data={item}/>} 
+        />
+
+        
+        
+       
+      </View>
+
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    alignItems: "center",
+   
+    backgroundColor: "#DDD",
+  }
+  
+})
+
+export default App;
